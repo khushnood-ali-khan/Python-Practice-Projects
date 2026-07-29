@@ -5,7 +5,6 @@ rollno = int(input("Enter your RollNo: "))
 
 sub : list[int] = []
 total_marks = 500
-i = 1
 
 for i in range(5):
     mark = int(input(f"Enter Subject {i+1} Marks: "))
