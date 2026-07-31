@@ -57,28 +57,36 @@ def each_product(product_value):
             
 
 def bill_fuc(product_list):
-    print("\n-----------ITEM LIST------------")
-    
-    for i in product_list:
-        subtotal.append(i['price']*i['quantity'])
-        print(f"Name: {i['name']} Price: {i['price']} Quantity: {i['quantity']} Subtotal: {subtotal}")
+    # printing the item list and indivisual bill of each item
+    print("\n-----------------------ITEM LIST-----------------------")
+    for i in range(len(product_list)):
+        current_dic = product_list[i]
+        subtotal.append(current_dic['price']*current_dic['quantity'])
+        print(f"Name: {current_dic['name']}\t|Price: {current_dic['price']}   |Quantity: {current_dic['quantity']}  |Subtotal: {subtotal[i]}  |")
 
     total = 0
-    cheap = 0
+    cheap = product_list[0]['price']        #consider the 1st element is a cheapest product 
     expensive = 0
-    print("\n---------FINAL BILL---------")
-    for k in product_list:
-        total += subtotal[k]
-        if cheap > k['price']:
-            cheap += k['price']
-            cheap_item += k['name']
-        if expensive < k['price']:
-            expensive += k['price']
-            exp_item += k['name']
+    exp_item = product_list[0]['name']      
+    cheap_item = product_list[0]['name']
 
+    #calculating the final bill and finding the cheapest and most expensive item
+    for k in range(len(product_list)):
+        total += subtotal[k]
+        current_dic = product_list[k]
+
+        if cheap > current_dic['price']:        # if the condition is true the cheapest item price and name will be updated 
+            cheap = current_dic['price']
+            cheap_item = current_dic['name']
+
+        if expensive < current_dic['price']:
+            expensive = current_dic['price']
+            exp_item = current_dic['name']
+
+    print("\n---------FINAL BILL---------")
     print(f"Total Bill: {total}")
-    print(f"Most Expensive Item: {exp_item} Price: {expensive}")
-    print(f"Cheapest Item: {cheap_item} Price: {cheap}")
+    print(f"Expensive One: {exp_item}  Price: {expensive}")
+    print(f"Cheapest One: {cheap_item}  Price: {cheap}")
 
 
 def main():
