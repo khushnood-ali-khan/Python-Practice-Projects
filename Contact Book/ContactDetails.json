@@ -1,5 +1,17 @@
 {
-    "name" :["khushnood ali khan"],
-    "phone" : ["03489822701"],
-    "email" : ["khan@gmail.com"]
+    "name": [
+        "khushnood ali khan",
+        "Khan",
+        "Ali Khan"
+    ],
+    "phone": [
+        "03489822701",
+        "928304",
+        "56789765"
+    ],
+    "email": [
+        "khan@gmail.com",
+        "kahsn@gmail.com",
+        "ali@gmail.com"
+    ]
 }
