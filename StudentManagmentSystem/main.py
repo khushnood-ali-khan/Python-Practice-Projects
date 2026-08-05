@@ -117,7 +117,14 @@ def addstudent():
         else: print("Invalid Input!")   #runs when the number of students to add is invalid
 
 def viewstudents():
-    pass
+    try:
+        with open(RECORDS,"r") as file:
+            records = json.load(file)
+            sorted_by_rollno = sorted(records, key=lambda x: x["rollno"])       #using lambda to sort the data by rollno
+            for i in sorted_by_rollno:
+                print(f"Roll No: {i['rollno']} Name: {i['name']} Age: {i['age']} Marks: {i['marks']}")
+    except(FileNotFoundError, json.JSONDecodeError):
+        print("There isn't any records!")
 
 def searchstudent():
     pass
