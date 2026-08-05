@@ -1,38 +1,14 @@
 [
   {
-    "name": "Khushnood",
-    "rollno": 35,
-    "age": 21,
-    "marks": [
+    "Roll No": 35,
+    "Name": "Khushnood",
+    "Age": 21,
+    "Marks": [
+      90,
       80,
-      85,
-      90,
-      75,
-      95
-    ]
-  },
-  {
-    "name": "khan",
-    "rollno": 1,
-    "age": 20,
-    "marks": [
-      90,
       98,
       89,
-      79,
-      80
-    ]
-  },
-  {
-    "name": "ali",
-    "rollno": 2,
-    "age": 21,
-    "marks": [
-      50,
-      90,
-      80,
-      70,
-      78
+      79
     ]
   }
 ]

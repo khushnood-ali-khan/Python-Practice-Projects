@@ -73,16 +73,16 @@ def addstudent():
 
                 for i in range(no_of_students):     #collect student data
                     student = {
-                        "name":"",
-                        "rollno": 0,
-                        "age" : 0,
-                        "marks" : []
+                        "Roll No": 0,
+                        "Name": "",
+                        "Age" : 0,
+                        "Marks" : []
                     }
                     print(f"\n *--- {i+1} Student Entry ---*")
 
                     #       Name
                     name = input("Student Name: ")
-                    student["name"] = name                 #assign the name into the dictionary
+                    student["Name"] = name                 #assign the name into the dictionary
 
                     #       Roll NO
                     while True:         #checks if the roll no is valid
@@ -90,20 +90,20 @@ def addstudent():
                         if roll_no.isdigit():
                             roll_no = int(roll_no)
                             if roll_no < 1: print("Roll NO can't be less then 1!")
-                            else: student["rollno"] = roll_no ; break      #assign roll no into the dictionary
+                            else: student["Roll No"] = roll_no ; break      #assign roll no into the dictionary
                         else: print("Invalid Roll NO!")
                     
                     #       AGE
                     while True:
                         age = input("Age: ").strip()
-                        if age.isdigit(): age = int(age) ; student["age"] = age ; break    #assign age into the dictionary
+                        if age.isdigit(): age = int(age) ; student["Age"] = age ; break    #assign age into the dictionary
                         else: print("Invalid Age!")
                     
                     #   Marks
                     for k in range(5):       #runs for taking 5 subjects marks
                         while True:          #checks if the marks are the right type
                             marks = input(f"Marks in subject {k+1}: ").strip()
-                            if marks.isdigit(): marks = int(marks) ; student["marks"].append(marks)  ; break      #assign marks to dictionary
+                            if marks.isdigit(): marks = int(marks) ; student["Marks"].append(marks)  ; break      #assign marks to dictionary
                             else: print("Marks Can Only be in digits!")
 
                     data.append(student)    #append the student record into the data list
@@ -120,9 +120,9 @@ def viewstudents():
     try:
         with open(RECORDS,"r") as file:
             records = json.load(file)
-            sorted_by_rollno = sorted(records, key=lambda x: x["rollno"])       #using lambda to sort the data by rollno
+            sorted_by_rollno = sorted(records, key=lambda x: x["Roll No"])       #using lambda to sort the data by rollno
             for i in sorted_by_rollno:
-                print(f"Roll No: {i['rollno']} Name: {i['name']} Age: {i['age']} Marks: {i['marks']}")
+                print(f"Roll No: {i['Roll No']} Name: {i['Name']} Age: {i['Age']} Marks: {i['Marks']}")
     except(FileNotFoundError, json.JSONDecodeError):
         print("There isn't any records!")
 
@@ -142,7 +142,15 @@ def showclassaverage():
     pass
 
 def saveasCSV():
-    print("comming soon!")
+    try:    #Loads the json data sort them by rollno through lambda and save it as csv
+        with open(RECORDS, "r") as file:
+            data = json.load(file)
+            sorted_data = sorted(data, key=lambda x: x["Roll No"])
+            pandasDataframe = pd.DataFrame(sorted_data)
+            pandasDataframe.to_csv("Student_Data.csv")
+            print("Saved Successfully!")
+    except(FileNotFoundError, json.JSONDecodeError):
+        print("No Record!")
 
 def main():
     while True:
