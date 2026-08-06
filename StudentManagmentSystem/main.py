@@ -39,7 +39,7 @@
 #       Prevent duplicate roll numbers.
 #       Display students sorted by percentage (implement your own sorting using loops).
 #       Search students by name or roll number.
-#        Count how many students got each grade (A+, A, B, etc.).
+#       Count how many students got each grade (A+, A, B, etc.).
 #       Ask for confirmation before deleting a student.
 
 import json
@@ -127,7 +127,40 @@ def viewstudents():
         print("There isn't any records!")
 
 def searchstudent():
-    pass
+    print("-----Select Your Option-----")
+    print("1. Search by Name")
+    print("2. Search by RollNo")
+    while True:
+        option = input("Select Either 1 or 2: ").strip()
+        if option.isdigit():
+            option = int(option)
+            if option == 2:
+                while True:
+                    rollno_search = input("Student Roll NO: ").strip()
+                    if rollno_search.isdigit():
+                        rollno_search = int(rollno_search)
+                        try:
+                            with open(RECORDS, "r") as f:
+                                file = json.load(f)
+                            for rollno_search in file: print(rollno_search) ; return
+                            else: print("Student Not Found!")
+                        except(FileNotFoundError, json.JSONDecodeError):
+                            print("Empty Record!")
+
+                    else: print("Invalid RollNo!")
+
+            elif option == 1:
+                name_search = input("Student Name: ")
+                try:
+                    with open(RECORDS, "r") as f:
+                        file = json.load(f)
+                    for name_search in file: print(name_search) ; return
+                    else: print("Student Not Found!")
+                except(FileNotFoundError, json.JSONDecodeError):
+                    print("Empty Record!")
+
+            else: print("Invalid Option!")
+        else: print("Invalid Selection!")
 
 def updatemarks():
     pass
