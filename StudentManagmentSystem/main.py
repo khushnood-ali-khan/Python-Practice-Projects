@@ -163,6 +163,24 @@ def searchstudent():
         else: print("Invalid Selection!")
 
 def updatemarks():
+    marksupdate = input("Enter RollNo to Update Marks: ").strip()
+    if marksupdate.isdigit():
+        marksupdate = int(marksupdate)
+        try:
+            with open(RECORDS, "r") as file:
+                data = json.load(file)
+                for marksupdate in data:
+                    for i in range(5):
+                        updated_marks = int(input("Enter the Marks: "))
+                        data[i]["Marks"].append(updated_marks)
+                    print("Successfully Updated!")
+
+                else: print("RollNo Not Found!")
+        except(FileNotFoundError, json.JSONDecodeError):
+            print("No Records!")
+
+    else: print("Invalid Input!")
+            
     pass
 
 def deletestudent():
