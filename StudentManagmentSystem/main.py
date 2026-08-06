@@ -85,12 +85,16 @@ def addstudent():
                     student["Name"] = name                 #assign the name into the dictionary
 
                     #       Roll NO
-                    while True:         #checks if the roll no is valid
+                    while True:         #checks if the roll no is valid and don't exists already
                         roll_no = input("Roll No: ").strip()
                         if roll_no.isdigit():
                             roll_no = int(roll_no)
-                            if roll_no < 1: print("Roll NO can't be less then 1!")
-                            else: student["Roll No"] = roll_no ; break      #assign roll no into the dictionary
+                            for check_roll_no in data:
+                                if check_roll_no["Roll No"] == roll_no: print("Roll No Exists!")
+                                else:
+                                    if roll_no < 1: print("Roll NO can't be less then 1!") ; break
+                                    else: student["Roll No"] = roll_no ; break     #assign roll no into the dictionary
+                            break
                         else: print("Invalid Roll NO!")
                     
                     #       AGE
@@ -169,19 +173,24 @@ def updatemarks():
         try:
             with open(RECORDS, "r") as file:
                 data = json.load(file)
+                new_marks = []
+                rollno = marksupdate
                 for marksupdate in data:
-                    for i in range(5):
-                        updated_marks = int(input("Enter the Marks: "))
-                        data[i]["Marks"].append(updated_marks)
-                    print("Successfully Updated!")
+                    if marksupdate["Roll No"] == rollno:
+                        for i in range(5):
+                            updated_marks = int(input(f"New Marks for Subject {i+1}: "))
+                            new_marks.append(updated_marks)
 
+                        marksupdate["Marks"] = new_marks
+                        with open(RECORDS, "w") as f:
+                            json.dump(data, f, indent=2)
+                        print("Successfully Updated!")
+                
                 else: print("RollNo Not Found!")
         except(FileNotFoundError, json.JSONDecodeError):
             print("No Records!")
 
     else: print("Invalid Input!")
-            
-    pass
 
 def deletestudent():
     pass
