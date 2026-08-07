@@ -128,7 +128,7 @@ def viewstudents():
             records = json.load(file)
             sorted_by_rollno = sorted(records, key=lambda x: x["Roll No"])       #using lambda to sort the data by rollno
             for i in sorted_by_rollno:
-                print(f"Roll No: {i['Roll No']} Name: {i['Name']} Age: {i['Age']} Marks: {i['Marks']} Percentage: {i['percentage']}")
+                print(f"Roll No: {i['Roll No']} Name: {i['Name']} Age: {i['Age']} Marks: {i['Marks']} Percentage: {i['percentage']:.2f}")
     except(FileNotFoundError, json.JSONDecodeError):
         print("There isn't any records!")
 
@@ -220,18 +220,17 @@ def percentage_calculation():
     try:
         with open(RECORDS,"r") as file:
             records = json.load(file)
-            obtain_marks = 0
             total_marks = 500
             for data in records:
-                while data["Marks"]:
+                if data["Marks"]:
+                    obtain_marks = 0
                     for i in range(len(data["Marks"])):
                         obtain_marks += data["Marks"][i]
-                    break
 
                 data["percentage"] = ((obtain_marks/total_marks) * 100)
 
         with open(RECORDS, "w") as f:
-            json.dump(data, f, indent= 2)
+            json.dump(records, f, indent= 2)
 
     except(FileNotFoundError, json.JSONDecodeError):
         return
