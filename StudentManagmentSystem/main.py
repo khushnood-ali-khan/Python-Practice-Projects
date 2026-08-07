@@ -73,11 +73,12 @@ def addstudent():
 
                 for i in range(no_of_students):     #collect student data
                     student = {
-                        "Roll No": 0,
+                        "Roll No": 1,
                         "Name": "",
                         "Age" : 0,
                         "Marks" : [],
-                        "percentage" : 0
+                        "percentage" : 0,
+                        "Grade" : ""
                     }
                     print(f"\n *--- {i+1} Student Entry ---*")
 
@@ -95,7 +96,7 @@ def addstudent():
                                 else:
                                     if roll_no < 1: print("Roll NO can't be less then 1!") ; break
                                     else: student["Roll No"] = roll_no ; break     #assign roll no into the dictionary
-                            break
+                            else: student["Roll No"] = roll_no ; break      #runs when the json file/data is empty
                         else: print("Invalid Roll NO!")
                     
                     #       AGE
@@ -123,17 +124,19 @@ def addstudent():
 
 def viewstudents():
     percentage_calculation()
+    Grading()
     try:
         with open(RECORDS,"r") as file:
             records = json.load(file)
             sorted_by_rollno = sorted(records, key=lambda x: x["Roll No"])       #using lambda to sort the data by rollno
             for i in sorted_by_rollno:
-                print(f"Roll No: {i['Roll No']} Name: {i['Name']} Age: {i['Age']} Marks: {i['Marks']} Percentage: {i['percentage']:.2f}")
+                print(f"Roll No: {i['Roll No']} Name: {i['Name']} Age: {i['Age']} Marks: {i['Marks']} Percentage: {i['percentage']:.2f} Grade: {i['Grade']}")
     except(FileNotFoundError, json.JSONDecodeError):
         print("There isn't any records!")
 
 def searchstudent():
     percentage_calculation()
+    Grading()
     print("-----Select Your Option-----")
     print("1. Search by Name")
     print("2. Search by RollNo")
@@ -235,6 +238,26 @@ def percentage_calculation():
     except(FileNotFoundError, json.JSONDecodeError):
         return
 
+def Grading():
+    with open(RECORDS, "r") as file:
+        data = json.load(file)
+        for grades in data:
+            percentage = grades['percentage']
+            if percentage >= 90:
+                grades['Grade'] = "A+"
+            elif percentage >= 80:
+                grades['Grade'] = "A"
+            elif percentage >= 70:
+                grades['Grade'] = "B"
+            elif percentage >= 60:
+                grades['Grade'] = "C"
+            elif percentage >= 50:
+                grades['Grade'] = "D"
+            else:
+                grades['Grade'] = "Fail!"
+
+    with open(RECORDS, "w") as f:
+        json.dump(data, f, indent=2)
 
 def main():
     while True:
