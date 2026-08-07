@@ -76,7 +76,8 @@ def addstudent():
                         "Roll No": 0,
                         "Name": "",
                         "Age" : 0,
-                        "Marks" : []
+                        "Marks" : [],
+                        "percentage" : 0
                     }
                     print(f"\n *--- {i+1} Student Entry ---*")
 
@@ -121,16 +122,18 @@ def addstudent():
         else: print("Invalid Input!")   #runs when the number of students to add is invalid
 
 def viewstudents():
+    percentage_calculation()
     try:
         with open(RECORDS,"r") as file:
             records = json.load(file)
             sorted_by_rollno = sorted(records, key=lambda x: x["Roll No"])       #using lambda to sort the data by rollno
             for i in sorted_by_rollno:
-                print(f"Roll No: {i['Roll No']} Name: {i['Name']} Age: {i['Age']} Marks: {i['Marks']}")
+                print(f"Roll No: {i['Roll No']} Name: {i['Name']} Age: {i['Age']} Marks: {i['Marks']} Percentage: {i['percentage']}")
     except(FileNotFoundError, json.JSONDecodeError):
         print("There isn't any records!")
 
 def searchstudent():
+    percentage_calculation()
     print("-----Select Your Option-----")
     print("1. Search by Name")
     print("2. Search by RollNo")
@@ -184,6 +187,7 @@ def updatemarks():
                         marksupdate["Marks"] = new_marks
                         with open(RECORDS, "w") as f:
                             json.dump(data, f, indent=2)
+                        percentage_calculation()
                         print("Successfully Updated!")
                 
                 else: print("RollNo Not Found!")
@@ -211,6 +215,27 @@ def saveasCSV():
             print("Saved Successfully!")
     except(FileNotFoundError, json.JSONDecodeError):
         print("No Record!")
+
+def percentage_calculation():
+    try:
+        with open(RECORDS,"r") as file:
+            records = json.load(file)
+            obtain_marks = 0
+            total_marks = 500
+            for data in records:
+                while data["Marks"]:
+                    for i in range(len(data["Marks"])):
+                        obtain_marks += data["Marks"][i]
+                    break
+
+                data["percentage"] = ((obtain_marks/total_marks) * 100)
+
+        with open(RECORDS, "w") as f:
+            json.dump(data, f, indent= 2)
+
+    except(FileNotFoundError, json.JSONDecodeError):
+        return
+
 
 def main():
     while True:
