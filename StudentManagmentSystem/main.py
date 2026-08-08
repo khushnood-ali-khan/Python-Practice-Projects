@@ -200,6 +200,9 @@ def updatemarks():
     else: print("Invalid Input!")
 
 def deletestudent():
+    try:
+        with open(RECORDS, "r") as file:
+            data = json.load(file)
     pass
 
 def showtopper():
