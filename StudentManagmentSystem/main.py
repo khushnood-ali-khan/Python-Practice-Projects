@@ -97,6 +97,7 @@ def addstudent():
                                     if roll_no < 1: print("Roll NO can't be less then 1!") ; break
                                     else: student["Roll No"] = roll_no ; break     #assign roll no into the dictionary
                             else: student["Roll No"] = roll_no ; break      #runs when the json file/data is empty
+                            break
                         else: print("Invalid Roll NO!")
                     
                     #       AGE
@@ -200,10 +201,21 @@ def updatemarks():
     else: print("Invalid Input!")
 
 def deletestudent():
+    roll_no = int(input("Roll No of the Student: ").strip())
     try:
         with open(RECORDS, "r") as file:
             data = json.load(file)
-    pass
+            for i in data:
+                if roll_no == i['Roll No']:
+                    del i
+                    print("Delect Successful!")
+                    break
+            else: print("RollNo don't exist!")
+            with open(RECORDS, "w") as f:
+                json.dump(data, f, indent=2)
+
+    except(FileNotFoundError, json.JSONDecodeError):
+        print("Empty Record!")
 
 def showtopper():
     pass
