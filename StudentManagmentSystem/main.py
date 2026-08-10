@@ -217,7 +217,9 @@ def showtopper():
         data = json.load(file)
         for per in data: topperList.append(per['percentage'])
         topper = max(topperList)
-        print(f"{topper:.2f}")
+        for student in data: 
+            if student["percentage"] == topper:
+                print(f"{student}")
 
 def showclassaverage():
     try:
@@ -231,7 +233,7 @@ def showclassaverage():
 
         average = total_percentage/count
 
-        print(f"Class Average = {average}")
+        print(f"Class Average = {average:.2f}")
     except(FileNotFoundError, json.JSONDecodeError):
         print("No Record!")
 
