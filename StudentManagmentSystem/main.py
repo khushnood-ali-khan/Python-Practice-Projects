@@ -212,7 +212,13 @@ def deletestudent():
     except(FileNotFoundError, json.JSONDecodeError):
         print("Empty Record!")
 
-def showtopper(): pass
+def showtopper():
+    topperList = []
+    with open(RECORDS, "r") as file:
+        data = json.load(file)
+        for per in data: topperList.append(per['percentage'])
+        topper = max(topperList)
+        print(f"{topper:.2f}")
 
 def showclassaverage():
     pass
