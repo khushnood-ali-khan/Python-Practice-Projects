@@ -208,7 +208,6 @@ def deletestudent():
             else: print("RollNo don't exist!")
             with open(RECORDS, "w") as f:
                 json.dump(data, f, indent=2)
-
     except(FileNotFoundError, json.JSONDecodeError):
         print("Empty Record!")
 
@@ -221,7 +220,19 @@ def showtopper():
         print(f"{topper:.2f}")
 
 def showclassaverage():
-    pass
+    try:
+        with open(RECORDS, "r") as file:
+            data = json.load(file)
+        count = 0
+        for i in data:
+            total_percentage += i['pecentage']
+            count += 1
+
+        average = total_percentage/count
+
+        print(f"Class Average = {average}")
+    except(FileNotFoundError, json.JSONDecodeError):
+        print("No Record!")
 
 def saveasCSV():
     try:    #Loads the json data sort them by rollno through lambda and save it as csv
