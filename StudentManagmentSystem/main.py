@@ -224,8 +224,9 @@ def showclassaverage():
         with open(RECORDS, "r") as file:
             data = json.load(file)
         count = 0
+        total_percentage = 0.0
         for i in data:
-            total_percentage += i['pecentage']
+            total_percentage += i['percentage']
             count += 1
 
         average = total_percentage/count
