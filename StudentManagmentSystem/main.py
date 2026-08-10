@@ -124,8 +124,6 @@ def addstudent():
         else: print("Invalid Input!")   #runs when the number of students to add is invalid
 
 def viewstudents():
-    percentage_calculation()
-    Grading()
     try:
         with open(RECORDS,"r") as file:
             records = json.load(file)
@@ -136,7 +134,6 @@ def viewstudents():
         print("There isn't any records!")
 
 def searchstudent():
-    percentage_calculation()
     Grading()
     print("-----Select Your Option-----")
     print("1. Search by Name")
@@ -191,9 +188,7 @@ def updatemarks():
                         marksupdate["Marks"] = new_marks
                         with open(RECORDS, "w") as f:
                             json.dump(data, f, indent=2)
-                        percentage_calculation()
                         print("Successfully Updated!")
-                
                 else: print("RollNo Not Found!")
         except(FileNotFoundError, json.JSONDecodeError):
             print("No Records!")
@@ -205,10 +200,10 @@ def deletestudent():
     try:
         with open(RECORDS, "r") as file:
             data = json.load(file)
-            for i in data:
-                if roll_no == i['Roll No']:
-                    del i
-                    print("Delect Successful!")
+            for student in data:
+                if roll_no == student['Roll No']:
+                    data.remove(student)
+                    print("Delete Successful!")
                     break
             else: print("RollNo don't exist!")
             with open(RECORDS, "w") as f:
@@ -217,8 +212,7 @@ def deletestudent():
     except(FileNotFoundError, json.JSONDecodeError):
         print("Empty Record!")
 
-def showtopper():
-    pass
+def showtopper(): pass
 
 def showclassaverage():
     pass
@@ -290,12 +284,16 @@ def main():
 
         if selected_action == 1:
             addstudent()
+            percentage_calculation()
+            Grading()
         elif selected_action == 2:
             viewstudents()
         elif selected_action == 3:
             searchstudent()
         elif selected_action == 4:
             updatemarks()
+            percentage_calculation()
+            Grading()
         elif selected_action == 5:
             deletestudent()
         elif selected_action == 6:
