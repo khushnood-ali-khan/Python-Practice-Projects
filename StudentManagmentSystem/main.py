@@ -52,7 +52,7 @@ def select_operation():
         select = input("SELECT YOUR OPERATION: ").strip()
         if select.isdigit():
             select = int(select)
-            if (select < 1) or (select > 10):
+            if (select < 1) or (select > 9):
                 print("Invalid Operation!")
             else:
                 return select
@@ -91,13 +91,15 @@ def addstudent():
                         roll_no = input("Roll No: ").strip()
                         if roll_no.isdigit():
                             roll_no = int(roll_no)
-                            for check_roll_no in data:
-                                if check_roll_no["Roll No"] == roll_no: print("Roll No Exists!")
-                                else:
-                                    if roll_no < 1: print("Roll NO can't be less then 1!") ; break
-                                    else: student["Roll No"] = roll_no ; break     #assign roll no into the dictionary
-                            else: student["Roll No"] = roll_no ; break      #runs when the json file/data is empty
-                            break
+                            if_exits = any(i.get("Roll No") == roll_no for i in data)
+                            if if_exits: print("Roll No Exits!")
+                            # for check_roll_no in data:
+                                # if check_roll_no["Roll No"] == roll_no: print("Roll No Exists!")
+                            else:
+                                if roll_no < 1: print("Roll NO can't be less then 1!") ; break
+                                else: student["Roll No"] = roll_no ; break     #assign roll no into the dictionary
+                            # else: student["Roll No"] = roll_no ; break      #runs when the json file/data is empty
+                            # break
                         else: print("Invalid Roll NO!")
                     
                     #       AGE
@@ -194,6 +196,7 @@ def updatemarks():
                         with open(RECORDS, "w") as f:
                             json.dump(data, f, indent=2)
                         print("Successfully Updated!")
+                        return
                 else: print("RollNo Not Found!")
         except(FileNotFoundError, json.JSONDecodeError):
             print("No Records!")
