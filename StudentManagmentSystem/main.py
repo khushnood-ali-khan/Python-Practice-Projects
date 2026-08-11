@@ -150,11 +150,13 @@ def searchstudent():
                         try:
                             with open(RECORDS, "r") as f:
                                 file = json.load(f)
-                            for rollno_search in file: print(rollno_search) ; return
+                            for search in file: 
+                                if rollno_search == search['Roll No']:
+                                    print(search)
+                                    return
                             else: print("Student Not Found!")
                         except(FileNotFoundError, json.JSONDecodeError):
                             print("Empty Record!")
-
                     else: print("Invalid RollNo!")
 
             elif option == 1:
@@ -162,7 +164,10 @@ def searchstudent():
                 try:
                     with open(RECORDS, "r") as f:
                         file = json.load(f)
-                    for name_search in file: print(name_search) ; return
+                    for search in file:
+                        if name_search == search['Name']:
+                            print(search)
+                            return
                     else: print("Student Not Found!")
                 except(FileNotFoundError, json.JSONDecodeError):
                     print("Empty Record!")
