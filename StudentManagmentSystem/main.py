@@ -96,7 +96,7 @@ def addstudent():
                             # for check_roll_no in data:
                                 # if check_roll_no["Roll No"] == roll_no: print("Roll No Exists!")
                             else:
-                                if roll_no < 1: print("Roll NO can't be less then 1!") ; break
+                                if roll_no < 1: print("Roll NO can't be less then 1!")
                                 else: student["Roll No"] = roll_no ; break     #assign roll no into the dictionary
                             # else: student["Roll No"] = roll_no ; break      #runs when the json file/data is empty
                             # break
