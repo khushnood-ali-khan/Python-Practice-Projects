@@ -1,14 +1,72 @@
 [
   {
-    "Roll No": 35,
-    "Name": "Khushnood",
+    "Roll No": 3,
+    "Name": "Alice",
     "Age": 21,
     "Marks": [
       90,
-      80,
-      98,
+      87,
+      88,
+      70,
+      75
+    ],
+    "percentage": 82.0,
+    "Grade": "A"
+  },
+  {
+    "Roll No": 7,
+    "Name": "Bob",
+    "Age": 22,
+    "Marks": [
+      88,
+      85,
+      78,
+      82,
+      71
+    ],
+    "percentage": 80.80000000000001,
+    "Grade": "A"
+  },
+  {
+    "Roll No": 8,
+    "Name": "Jon",
+    "Age": 21,
+    "Marks": [
       89,
-      79
-    ]
+      80,
+      91,
+      70,
+      82
+    ],
+    "percentage": 82.39999999999999,
+    "Grade": "A"
+  },
+  {
+    "Roll No": 12,
+    "Name": "Marry",
+    "Age": 22,
+    "Marks": [
+      90,
+      88,
+      76,
+      81,
+      73
+    ],
+    "percentage": 81.6,
+    "Grade": "A"
+  },
+  {
+    "Roll No": 4,
+    "Name": "Alex",
+    "Age": 20,
+    "Marks": [
+      91,
+      81,
+      84,
+      90,
+      77
+    ],
+    "percentage": 84.6,
+    "Grade": "A"
   }
 ]
